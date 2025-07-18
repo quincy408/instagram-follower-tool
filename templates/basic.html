@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-QD6XLNGWL8"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-QD6XLNGWL8');
+	</script>
+	<meta charset="utf-8">
+	<meta property="og:title" content="名單分析" />
+	<meta property="og:description" content="一個可以分析名單的神器" />
+	<meta property="og:image" content="/static/PNG/a.png" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
+	<title>名單分析</title>
+	<link href="/static/CSS&JS/bootstrap-dark.min.css" rel="stylesheet" crossorigin="anonymous">
+	<script src="/static/CSS&JS/popper.min.js"></script>
+	<script src="/static/CSS&JS/bootstrap.min.js"></script>
+	<script src="/static/CSS&JS/jquery-3.6.0.min.js"></script>
+    <link href="/static/CSS&JS/jquery-ui.css" rel="stylesheet">
+    <script src="/static/CSS&JS/jquery-ui.js"></script>
+    <script src="/static/CSS&JS/FileSaver.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style type="text/css">
+    	.div-center{ margin: auto;}
+    	.dil{display:inline;}
+    </style>
+</head>
+<body>
+<div class="container-fluid py-3" style="font-family: Microsoft JhengHei">
+	<div class="row" style="padding-bottom: 10px;">
+		<div class="col-2">
+		</div>
+		<div class="col-2 div-center" style="text-align: center">
+			<h3>分析</h3>
+		</div>
+    	<div class="col-auto div-center">
+    			<button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#IllustrateModal">
+					使用者說明
+				</button>
+				<div class="vr" style="min-height: 0.6em; opacity: .5;"></div>
+    			<button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#StatementModal">
+					開發者聲明
+				</button>
+    	</div>
+    	<div class="col-2 div-center" style="text-align: center">
+			<h3>神器</h3>
+		</div>
+    	<div class="col-2">
+		</div>
+    </div>
+    <!--說明書內容-->
+    <div class="modal fade" id="IllustrateModal" tabindex="-1" aria-labelledby="IllustrateModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-xl modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h3 class="modal-title" id="IllustrateModalLabel">說明書</h3>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      	<ul>
+			  <li><h5>想要知道自己的粉絲是誰偷偷退追？</h5></li>
+			  <li><h5>想要知道自己的追隨者誰偷偷不讓你追蹤？</h5></li>
+			</ul>
+			<h5 style="color: #fd7e14;text-align: center;">如果你有以上擔憂，本系統保證你高枕無憂！</h5>
+			<hr align="center" style="margin: auto; margin-top: 20px; margin-bottom: 15px; width: 25%; border: none; height: 2px;">
+			<h4>系統優點：</h4>
+	      	<ul>
+			  <li>不收集任何關於IG帳號的資料</li>
+			  <li>分析紀錄加密，直接打開檔案，用肉眼啥都看不出來</li>
+			  <li>方便好用，不需要載任何工具</li>
+			</ul>
+			<hr align="center" style="margin: auto; margin-top: 20px; margin-bottom: 15px; width: 25%; border: none; height: 2px;">
+	      	<h4>功能介紹：</h4>
+	      	藉由爬取所有粉絲或追蹤名單，之後再爬取，便可進行比對來得知誰是新的追隨者或誰是新的退追者。<br>
+	      	(簡單講就是先建立當前的名單，如果你之後發現IG上的名單數量有變動或是異常時，可以再次前來分析，系統就會自動找出那位特殊人物)<br><br>
+	      	<hr style="margin: auto; margin-top: 15px; margin-bottom: 15px; width: 25%; border: none; height: 2px;">
+	      	<h5>第一次使用流程(建立名單)：</h5>
+	      	<h6><span style="color: #FFC1E0;">抓取元素</span>➤複製至<span style="color: #ffc107;">"元素內容"</span>➤點擊<span style="color: #ffc107;">"分析"</span>➤查看<span style="color: #ffc107;">"更新後總人數"</span>➤如不符合名單上總人數，便回到第一步驟重來</h6>
+	      	<h6>如符合就按下<span style="color: #ffc107;">"下載當前更新後原名單"</span>，並妥善保存該檔案，直到下次使用</h6><br>
+	      	<h5>第N次使用流程(名單比對)：</h5>
+	      	<h6>先<span style="color: #ffc107;">匯入原名單</span>後➤再去<span style="color: #FFC1E0;">抓取元素</span>➤複製至<span style="color: #ffc107;">"元素內容"</span>➤點擊<span style="color: #ffc107;">"分析"</span>➤便可查看異常結果</h6>
+	      	<h6>系統會自動增加<span style="color: #ffc107;">未出現過的名單</span>至原名單，如有不想看到的代號能進行刪除。</h6><br>
+	      	<h5 style="color: #20c997">之後流程就一樣，下載下來並保存留著以後繼續稽查使用</h5><br>
+	      	<hr style="margin: auto; margin-top: 15px; margin-bottom: 15px; width: 25%; border: none; height: 2px;">
+	      	<h4><span style="color: #FFC1E0;">抓取元素教學：</span></h4>	
+	      	<!--輪播內容-->
+	        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+			  <div class="carousel-indicators">
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  </div>
+			  <div class="carousel-inner">
+			  	<div class="carousel-item active">
+			      <img src="/static/PNG/3.png" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block" style="color:white;">
+			        <h5>來到IG頁面，點擊F12</h5>
+			        <p>開啟開發者模式來準備抓取元素</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <img src="/static/PNG/4.png" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block" style="color:white;">
+			        <h5>點擊紅色部分開啟名單</h5>
+			        <p>往下滑，使它載入更多名單內容，必須到底為止</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <img src="/static/PNG/7.gif" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block" style="color:white;">
+			      </div>
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div><br>
+			<hr style="margin: auto; margin-top: 15px; margin-bottom: 15px; width: 25%; border: none; height: 2px;">
+			<h4>注意事項：</h4>
+			    <ul>
+			    	<li>本系統只適用於PC，手機版能用算你厲害</li>
+			      	<li>並不是第一次建立名單就會有稽查結果，而是把名單先存著，等到名單的人數有異常或變動時才能稽查出來。</li>
+			      	<li>如果第一次爬取結果不等於名單上的數量時，請重新整理IG的網頁並重複動作，再次複製元素給本系統分析。<br>（會導致這樣的原因應該是IG他並不會將所有名單顯示給你看，所以多重複幾次以上動作就可以完全的爬取名單）</li>
+			    </ul>
+	      	<br>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--申明書內容-->
+	<div class="modal fade" id="StatementModal" tabindex="-1" aria-labelledby="StatementModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="StatementModalLabel">聲明書</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        如因使用本系統，導致關係分裂，或是任何法律問題，開發者一律不負任何責任。<br><br>
+	        本系統僅限使用於自己帳號，請勿侵犯他人隱私。<br><br>
+	        本系統不會收集任何使用紀錄，請放心使用。<br><br>
+	        當前版本:1.0<br>相關疑問或建議:quincy408@yahoo.com.tw
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<div class="row">
+	<div class="col-5">
+		<div class="row">
+			<div class="col-2">
+			</div>
+			<div class="col-10">
+				<label for="htmlTextarea">元素內容</label>
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+    			<textarea class="form-control" id="htmlTextarea" rows="10"></textarea>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-2">
+			</div>
+			<div class="col-6">
+				<label for="importOriginalTXT">匯入原名單</label>
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<div class="input-group">
+				  <input type="file" class="form-control" id="importOriginalTXT" aria-describedby="importOriginalTXT" aria-label="Upload">
+				</div>
+			</div>
+			<div class="col-4">
+				<label for="OriginalTextarea">原名單內容</label>
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+    			<textarea class="form-control" id="OriginalTextarea" rows="10" wrap="off" readonly></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="col-2" style="height: auto;">
+		<div class="row">
+			<div class="col" style="text-align: center;">
+				狀態
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<h4><strong><div id="Status" title='展示當前執行結果'>
+					閒置
+				</div></strong></h4>
+			</div>
+		</div>
+		<div class="row" style="height: 97%;bottom: 0;">
+			<div class="col" title='按下"分析"來分析出結果'>
+				<button class="block btn-success" id="analyzeButton" style="height: 90%; width: 100%;"><h2><strong>
+					分析
+				</strong></h2></button>
+			</div>
+		</div>
+	</div>
+	<div class="col-5 mh-100" id="result">
+		<div class="row">
+			<div class="col-3" title='本次在元素中分析出的人數'>
+				爬取人數
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<input type="text" id="CrawlerCount" name="CrawlerCount" style="text-align:center; width: 100%;" value="無" disabled="disabled">
+			</div>
+			<div class="col-2">
+				疑似減少
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<input type="text" id="DECCount" name="DECCount" style="text-align:center; width: 100%;" value="無" disabled="disabled">
+			</div>
+			<div class="col-2">
+				未曾出現
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<input type="text" id="ADDCount" name="ADDCount" style="text-align:center; width: 100%;" value="無" disabled="disabled">
+			</div>
+			<div class="col-3">
+				更新後總人數
+				<hr style="margin-top: 2px; margin-bottom: 8px;">
+				<input type="text" id="ALLCount" name="ALLCount" style="text-align:center; width: 100%;" value="無" disabled="disabled">
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-3">
+				<label for="DECTextarea" title="可能是退追或是剛好沒在元素裡的人(參考性較低)">疑似減少名單</label>
+					<hr style="margin-top: 2px; margin-bottom: 8px;">
+	    		<textarea class="form-control" id="DECTextarea" rows="10" wrap="off" readonly></textarea>
+	    	</div>
+	    	<div class="col-3">
+				<label for="ADDTextarea" title="在第一次分析後，或是在原名單中從未出現的人(如有匯入原名單，參考性較高)">未曾出現名單</label>
+					<hr style="margin-top: 2px; margin-bottom: 8px;">
+	    		<textarea class="form-control" id="ADDTextarea" rows="10" wrap="off" readonly></textarea>
+	    	</div>
+	    	<div class="col-4">
+				<label for="ALLTextarea" title="目前總粉絲或是追隨者名單">更新後原名單</label>
+					<hr style="margin-top: 2px; margin-bottom: 8px;">
+	    		<textarea class="form-control" id="ALLTextarea" rows="10" wrap="off" readonly></textarea>
+	    	</div>
+    		<div class="col-2">
+			</div>
+		</div>
+		<div class="row" style="margin-top: 30px;">
+			<div class="col-10">
+				名單資訊<hr style="margin-top: 2px; margin-bottom: 8px;">
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-10">
+				<div class="input-group">
+				  <select class="form-select" id="OriginalSelect" aria-label="Example select with button addon">
+				    <option selected>刪除選項...</option>
+				  </select>
+				  <button class="btn btn-danger" id="DeleteBtn"type="button">刪除</button>
+				</div>
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+		<div class="row" style="margin-top: 40px;">
+			<div class="col-5">
+				最後更新日期：<p id="lastUPDate" style="display:inline;">無</p>
+			</div>
+			<div class="col-5">
+				<button id="downloadBtn" class="block btn-warning" style="width: 100%; text-align: center; font-size: 20px;"><strong>
+					下載當前更新後原名單
+				</strong></button>
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+<script type="text/javascript">
+var ALLList = [];
+var ADDList = [];
+var DECList = [];
+$("#importOriginalTXT").attr("accept", "text/plain");
+
+function encrypt(text, key) {
+  var encrypted = CryptoJS.AES.encrypt(text, key);
+  return encrypted.toString();
+}
+
+function decrypt(text, key) {
+  var decrypted = CryptoJS.AES.decrypt(text, key);
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+function updateOriginalSelect(){
+	var select = $('select#OriginalSelect');
+	$('select#OriginalSelect option').remove();
+	$.each(ALLList, function(index, value) {
+		select.append($('<option>').text(value).val(value));
+	});
+}
+
+function updateALLTextarea(){
+	var ALLTextarea = "";
+	if (ALLList.length != 0){
+		$("#htmlTextarea").val("")
+		for (let i of ALLList) {
+			ALLTextarea = ALLTextarea + i;
+			ALLTextarea = ALLTextarea + "\n";
+		}
+		$("#ALLTextarea").text(ALLTextarea);
+	}
+}
+
+$(document).ready(function() {
+$("#StatementModal").modal('show');
+//下載原名單
+$("#downloadBtn").click(function() {
+	if (ALLList.length != 0){
+		var now = new Date();
+	    var timestamp = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + '_' + now.getHours() + '-' + now.getMinutes();
+	    var date = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate() + '-' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+		var jsonData = {
+	    	"Date": date,
+	    	"ALLList": ALLList,
+	  	};
+	  	var jsonStr = JSON.stringify(jsonData);
+	  	var encryptedStr = encrypt(jsonStr, "9487");
+		var blob = new Blob([encryptedStr], { type: "text/plain;charset=utf-8" });
+	    var fileName = timestamp + '.txt';
+	    saveAs(blob, fileName);
+	}else{
+		alert("目前原名單是空的");
+	}
+});
+
+//匯入原名單
+$("#importOriginalTXT").change(function() {
+    var file = $(this).prop("files")[0];
+    var reader = new FileReader();
+    reader.onload = function() {
+      	var importedText = reader.result;
+      	// 將匯入的文本進行解密
+      	try {
+      		var decryptedJsonStr = decrypt(importedText, "9487");
+			var importedJson = JSON.parse(decryptedJsonStr);
+			var OriginalTextarea = ""
+			for (let i of importedJson["ALLList"]) {
+				OriginalTextarea = OriginalTextarea + i;
+				OriginalTextarea = OriginalTextarea + "\n";
+			}
+			$("#OriginalTextarea").text(OriginalTextarea);
+			$("#lastUPDate").text(importedJson["Date"]);
+			ALLList = importedJson["ALLList"]
+			updateOriginalSelect();
+		}
+		catch (e) {
+			alert("檔案有誤請檢查");
+		}
+    };
+    reader.readAsText(file);
+  });
+
+//刪除按鈕
+$("#DeleteBtn").click(function() {
+	const selectedValue = $('#OriginalSelect').val();
+	if (!selectedValue) {
+    	return;
+  	}
+  	const index = $.inArray(selectedValue, ALLList);
+	if (index !== -1) {
+    	ALLList.splice(index, 1);
+		updateALLTextarea();
+		updateOriginalSelect();
+		$("#ALLCount").val(ALLList.length);
+		alert("將"+selectedValue+"刪除成功");
+  	} else {
+    	return;
+    }
+});
+
+//分析按鈕
+$("#analyzeButton").click(function(){
+    $("#status").html("元素分析中");
+ 	var html = $("#htmlTextarea").val();
+ 	if(html.trim() == "") {
+	  	alert('元素不得為空值');
+	}else{
+		$.ajax({
+	        url: "/analyzeData/",
+	        type: "POST",
+	        data: {
+	        	'html':html,
+	        	'ALLList[]':ALLList,
+	        	'ADDList[]':ADDList,
+	        	'DECList[]':DECList,
+	            'csrfmiddlewaretoken': '{{ csrf_token }}',
+	        },
+	        success: function(resp){
+	            $("#Status").html(resp.Status);
+	            $("#CrawlerCount").val(resp.CrawlerCount)
+	            $("#ALLCount").val(resp.ALLCount)
+	            $("#ADDCount").val(resp.ADDCount)
+	            $("#DECCount").val(resp.DECCount)
+	            
+	            ALLList = resp.ALLList;
+	            updateALLTextarea();
+	            
+				ADDList = resp.ADDList;
+				var ADDTextarea = "";
+		        for (let i of ADDList) {
+					ADDTextarea = ADDTextarea + i;
+					ADDTextarea = ADDTextarea + "\n";
+				}
+		        $("#ADDTextarea").text(ADDTextarea);
+
+		        DECList = resp.DECList;
+				var DECTextarea = "";
+		        for (let i of DECList) {
+					DECTextarea = DECTextarea + i;
+					DECTextarea = DECTextarea + "\n";
+				}
+		        $("#DECTextarea").text(DECTextarea);
+
+		        updateOriginalSelect();
+	        }
+	    });
+    }
+});
+});
+</script>
+<div class="footer-copyright text-center py-3">
+	© 2023 Copyright : quincy408
+</div>
+</body>
+</html>
