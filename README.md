@@ -2,7 +2,7 @@
 
 📱 一個基於 Django 的本地網頁工具，可追蹤 Instagram 粉絲變動，幫助你找出誰取消追蹤你、誰是新粉絲。
 
----
+<br>
 
 ## 🚀 專案特色
 
@@ -11,7 +11,12 @@
 - 🗂 清楚顯示帳號變動記錄
 - 🌐 提供本地端簡易網頁介面操作（基於 Django）
 
----
+<br>
+
+## 🔽 使用畫面教學：
+![教學演示](./static/PNG/7.gif)
+
+<br>
 
 ## 🛠️ 安裝與啟動方式
 
@@ -21,6 +26,7 @@
 git clone https://github.com/quincy408/instagram-follower-tool.git
 cd instagram-follower-tool
 ```
+<br>
 
 ### 第二步：建立虛擬環境
 
@@ -28,11 +34,14 @@ cd instagram-follower-tool
 python -m venv venv
 source venv/bin/activate  # Windows 系統請執行：venv\Scripts\activate
 ```
+<br>
+
 ### 第三步：安裝依賴套件
 
 ```bash
 pip install -r requirements.txt
 ```
+<br>
 
 ### 第四步：啟動 Django 專案
 
@@ -40,7 +49,7 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+<br>
+
 ### 🎉 啟動伺服器後，前往 [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/)，你將看到 IG 粉絲追隨神器的首頁介面！
----
-🔽 使用畫面教學：
-![教學演示](./static/PNG/7.gif)
+
