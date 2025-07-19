@@ -5,9 +5,9 @@
 
 ## 🚀 專案特色 | Features
 
-- 🔍 爬取 Instagram 的追蹤或粉絲名單
+- 🔍 爬取 Instagram 的追蹤或粉絲名單 
   *Scrape your Instagram following or follower list*
-- 💡 爾後再次使用便可偵測新增或取消追蹤者
+- 💡 爾後再次使用便可偵測新增或取消追蹤者 
   *Detect new followers or unfollowers on subsequent scans*
 - 🌐 提供本地端簡易網頁介面操作（基於 Django）
   *Local web interface powered by Django for easy operation*
