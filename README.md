@@ -1,7 +1,7 @@
-# IG 粉絲追隨神器
+# IG 粉絲追隨神器 (IG Follower Tracker Tool)
 
-📱 一個基於 Django 的本地網頁工具，可紀錄 Instagram 粉絲清單，在變動時幫助你找出誰取消追蹤你、誰是新粉絲。
-
+📱 一個基於 Django 的本地網頁工具，可紀錄 Instagram 粉絲清單，在變動時幫助你找出誰取消追蹤你、誰是新粉絲。<br><br>
+📱 A local web tool built with Django to record your Instagram followers list — helping you identify who unfollowed you and who your new followers are.
 <br>
 
 ## 🚀 專案特色
